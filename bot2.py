@@ -9,24 +9,28 @@ CHAT_ID = os.getenv('CHAT_ID')
 bot = telebot.TeleBot(TOKEN)
 
 # Path to your video - Ensure the filename matches exactly!
+# Double check if it is posters/ or poster/
 VIDEO_PATH = "posters/poster_a.MP4"
 
 def main():
-    print("--- DEBUG INFO ---")
-    print(f"Checking for file: {VIDEO_PATH}")
+    print("--- DEBUG START ---")
+    print(f"Target Chat ID: {CHAT_ID}")
     
-    # Check if file exists in the folder
+    # 1. Check if the file actually exists in GitHub
     if not os.path.exists(VIDEO_PATH):
-        print(f"ERROR: File '{VIDEO_PATH}' not found in the posters folder!")
+        print(f"ERROR: File '{VIDEO_PATH}' not found! Check your folder name.")
         return
 
-    print(f"Attempting to send to Chat ID: {CHAT_ID}")
-    
-    # We removed 'try/except' so that if it fails, GitHub shows the Red X and the reason
-    with open(VIDEO_PATH, 'rb') as video:
-        bot.send_video(CHAT_ID, video, caption="Manual Test: Poster A")
-    
-    print("SUCCESS: Video sent to Telegram!")
+    # 2. Attempt to send
+    try:
+        with open(VIDEO_PATH, 'rb') as video:
+            bot.send_video(CHAT_ID, video, caption="Testing RapidBus Bot")
+        print("SUCCESS: Video sent to Telegram!")
+    except Exception as e:
+        # This will print the EXACT reason Telegram rejected it
+        print(f"TELEGRAM REJECTED THE POST: {e}")
+        # This raises the error so GitHub turns RED
+        raise e
 
 if __name__ == "__main__":
     main()
