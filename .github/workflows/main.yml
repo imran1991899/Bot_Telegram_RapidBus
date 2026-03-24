@@ -1,0 +1,29 @@
+name: Telegram Daily Scheduler
+
+on:
+  schedule:
+    # Runs at 5:00, 9:00, and 12:00 Malaysia Time every day
+    - cron: '0 5,9,12 * * *'
+      timezone: 'Asia/Kuala Lumpur'
+  workflow_dispatch: # Allows you to click a button to test it manually
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Libraries
+        run: pip install pyTelegramBotAPI pytz
+
+      - name: Execute Script
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
+        run: python bot.py
