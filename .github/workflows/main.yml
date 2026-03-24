@@ -2,7 +2,9 @@ name: Telegram Daily Scheduler
 
 on:
   schedule:
-    # 21:00 UTC (5am MYT), 01:00 UTC (9am MYT), 04:00 UTC (12pm MYT)
+    # 21:00 UTC = 5am MYT
+    # 01:00 UTC = 9am MYT
+    # 04:00 UTC = 12pm MYT
     - cron: '0 21,1,4 * * *'
   workflow_dispatch:
 
