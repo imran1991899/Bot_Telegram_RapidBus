@@ -1,11 +1,14 @@
 name: Manual Instant Test (Bot 2)
 
 on:
-  workflow_dispatch: # This makes a "Run workflow" button appear in GitHub
+  workflow_dispatch:
 
 jobs:
   test_run:
     runs-on: ubuntu-latest
+    env:
+      # This removes the Node.js 20 warning
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -22,5 +25,4 @@ jobs:
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
-        # This triggers your bot2.py instead of the scheduled bot.py
         run: python bot2.py
