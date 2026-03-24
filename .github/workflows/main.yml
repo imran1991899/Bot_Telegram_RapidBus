@@ -2,10 +2,9 @@ name: Telegram Daily Scheduler
 
 on:
   schedule:
-    # Runs at 5:00, 9:00, and 12:00 Malaysia Time every day
-    - cron: '0 5,9,12 * * *'
-      timezone: 'Asia/Kuala Lumpur'
-  workflow_dispatch: # Allows you to click a button to test it manually
+    # 21:00 UTC (5am MYT), 01:00 UTC (9am MYT), 04:00 UTC (12pm MYT)
+    - cron: '0 21,1,4 * * *'
+  workflow_dispatch: # This allows you to click the button to test manually
 
 jobs:
   build:
