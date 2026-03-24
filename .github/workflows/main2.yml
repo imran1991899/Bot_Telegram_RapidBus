@@ -6,9 +6,6 @@ on:
 jobs:
   test_run:
     runs-on: ubuntu-latest
-    env:
-      # This removes the Node.js 20 warning
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -25,4 +22,6 @@ jobs:
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
+          # This removes the yellow warning
+          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
         run: python bot2.py
