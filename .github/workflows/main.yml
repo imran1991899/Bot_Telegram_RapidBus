@@ -1,28 +1,22 @@
-name: Telegram Daily Scheduler
+import os
+import telebot
 
-on:
-  schedule:
-    # 21:00 UTC (5am MYT), 01:00 UTC (9am MYT), 04:00 UTC (12pm MYT)
-    - cron: '0 21,1,4 * * *'
-  workflow_dispatch: # This allows you to click the button to test manually
+# Get credentials from GitHub Secrets
+TOKEN = os.getenv('TELEGRAM_TOKEN')
+CHAT_ID = os.getenv('CHAT_ID')
+bot = telebot.TeleBot(TOKEN)
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+# Path to your video
+VIDEO_PATH = "posters/poster_a.MP4"
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
+def main():
+    print("Attempting to send video...")
+    try:
+        with open(VIDEO_PATH, 'rb') as video:
+            bot.send_video(CHAT_ID, video)
+        print("Success! Video sent to Telegram.")
+    except Exception as e:
+        print(f"Error occurred: {e}")
 
-      - name: Install Libraries
-        run: pip install pyTelegramBotAPI pytz
-
-      - name: Execute Script
-        env:
-          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-          CHAT_ID: ${{ secrets.CHAT_ID }}
-        run: python bot.py
+if __name__ == "__main__":
+    main()
