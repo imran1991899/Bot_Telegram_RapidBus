@@ -24,7 +24,7 @@ jobs:
         run: pip install pyTelegramBotAPI
 
       - name: Run Poster A (5am & 12pm)
-        if: github.event.schedule == '0 21 * * *' || github.event.schedule == '0 4 * * *' || github.event_name == 'workflow_dispatch'
+        if: github.event.schedule == '0 20 * * *' || github.event.schedule == '0 4 * * *' || github.event_name == 'workflow_dispatch'
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
