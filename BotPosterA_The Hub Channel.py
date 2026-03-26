@@ -1,36 +1,35 @@
 import os
 import telebot
+import sys
 
 TOKEN = os.getenv('TELEGRAM_TOKEN')
 CHAT_ID = os.getenv('CHAT_ID')
 bot = telebot.TeleBot(TOKEN)
 
-def find_video_file():
-    # This looks through every folder in your repo for a video
-    for root, dirs, files in os.walk("."):
-        for file in files:
-            if file.lower().endswith(".mp4"):
-                return os.path.join(root, file)
-    return None
+# Mapping the mode to the specific file path
+POSTER_MAP = {
+    "POSTER_A": "poster/poster_a.MP4",
+    "POSTER_B": "poster/poster_b.MP4" # Ensure you have a poster_b.MP4 in your folder!
+}
 
 def main():
-    print("--- DEBUG START ---")
-    
-    video_path = find_video_file()
-    
-    if not video_path:
-        print("ERROR: No MP4 file found anywhere in the repository!")
-        # List files to help you debug
-        print(f"Current directory contents: {os.listdir('.')}")
-        return
+    # Get the poster type from the command line argument
+    mode = sys.argv[1] if len(sys.argv) > 1 else "POSTER_A"
+    video_path = POSTER_MAP.get(mode)
 
-    print(f"Found video at: {video_path}")
-    print(f"Target Chat ID: {CHAT_ID}")
+    print(f"--- DEBUG START ---")
+    print(f"Mode: {mode}")
+    print(f"Target Path: {video_path}")
+
+    if not video_path or not os.path.exists(video_path):
+        print(f"ERROR: File '{video_path}' not found!")
+        return
 
     try:
         with open(video_path, 'rb') as video:
-            bot.send_video(CHAT_ID, video, caption="Testing RapidBus Bot")
-        print("SUCCESS: Video sent to Telegram!")
+            caption = "RapidBus Morning Update" if mode == "POSTER_A" else "RapidBus Midday Update"
+            bot.send_video(CHAT_ID, video, caption=caption)
+        print(f"SUCCESS: {mode} sent to Telegram!")
     except Exception as e:
         print(f"TELEGRAM REJECTED THE POST: {e}")
         raise e
