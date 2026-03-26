@@ -1,27 +1,38 @@
-name: Manual Instant Test (Bot 2)
+name: test! Scheduled 
 
 on:
-  workflow_dispatch:
+  schedule:
+    # GitHub uses UTC. (+8 hours for Malaysia)
+    - cron: '0 21 * * *'  # 5:00 AM MYT (Poster A)
+    - cron: '0 4 * * *'   # 12:00 PM MYT (Poster A)
+    - cron: '0 13 * * *'  # 9:00 PM MYT (Poster B)
+  workflow_dispatch:      # Allows you to run it manually for testing
 
 jobs:
-  test_run:
+  post-video:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Python
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: Install Libraries
-        run: pip install pyTelegramBotAPI pytz
+      - name: Install dependencies
+        run: pip install pyTelegramBotAPI
 
-      - name: Execute Test Script
+      - name: Run Poster A (5am & 12pm)
+        if: github.event.schedule == '0 21 * * *' || github.event.schedule == '0 4 * * *' || github.event_name == 'workflow_dispatch'
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
-          # This removes the yellow warning
-          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-        run: python bot2.py
+        run: python bot2.py POSTER_A
+
+      - name: Run Poster B (9pm)
+        if: github.event.schedule == '0 13 * * *'
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
+        run: python bot2.py POSTER_B
