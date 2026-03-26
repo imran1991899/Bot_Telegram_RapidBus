@@ -3,7 +3,7 @@ import telebot
 import sys
 
 TOKEN = os.getenv('TELEGRAM_TOKEN')
-CHAT_ID = os.getenv('CHAT_ID')
+CHAT_ID = os.getenv('CHAT_ID_THC')
 bot = telebot.TeleBot(TOKEN)
 
 # Mapping the mode to the specific file path
