@@ -10,7 +10,7 @@ bot = telebot.TeleBot(TOKEN)
 
 # Path to your video - Ensure the filename matches exactly!
 # Double check if it is posters/ or poster/
-VIDEO_PATH = "posters/poster_a.MP4"
+VIDEO_PATH = "poster/poster_a.MP4"
 
 def main():
     print("--- DEBUG START ---")
