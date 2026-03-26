@@ -1,8 +1,8 @@
 ##  bot_father
 ##  bot account name : @PosterRapidBus_Bot
 ##  Use this token to access the HTTP API: 8631387319:AAESw4_Y_pShrMODzc5iZnT7jZF8fUtYkUI  
-##  bot channel test : test    chat_id : -1003316477673
-##  bot channel The Hub Channel : The Hub Channel    chat_id : -1003863909414
+##  bot channel test : test     CHAT_ID : -1003316477673
+##  bot channel The Hub Channel : The Hub Channel    CHAT_ID_THC : -1003863909414
 
 
 🚀 Telegram Bot Deployment Checklist
