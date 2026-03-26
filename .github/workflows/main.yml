@@ -1,15 +1,10 @@
-name: Telegram Daily Scheduler
+name: Manual Instant Test (Bot 2)
 
 on:
-  schedule:
-    # 21:00 UTC = 5am MYT
-    # 01:00 UTC = 9am MYT
-    # 04:00 UTC = 12pm MYT
-    - cron: '0 21,1,4 * * *'
   workflow_dispatch:
 
 jobs:
-  build:
+  test_run:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -23,8 +18,10 @@ jobs:
       - name: Install Libraries
         run: pip install pyTelegramBotAPI pytz
 
-      - name: Execute Script
+      - name: Execute Test Script
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
-        run: python bot.py
+          # This removes the yellow warning
+          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+        run: python bot2.py
