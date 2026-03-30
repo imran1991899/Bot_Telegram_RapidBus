@@ -1,23 +1,11 @@
-name: Telegram Poster Scheduled
+name: Scheduled and Manual Test
 
 on:
   schedule:
-    # GitHub uses UTC. (+8 hours for Malaysia)
-    - cron: '0 20 * * *'  # 4:00 AM MYT (Poster A) - Note: 20:00 UTC is 04:00 MYT
+    - cron: '0 21 * * *'  # 5:00 AM MYT (Poster A)
     - cron: '0 4 * * *'   # 12:00 PM MYT (Poster A)
     - cron: '0 13 * * *'  # 9:00 PM MYT (Poster B)
-  
-  workflow_dispatch:
-    inputs:
-      run_mode:
-        description: 'Which poster to run manually?'
-        required: true
-        default: 'ALL'
-        type: choice
-        options:
-          - ALL
-          - POSTER_A
-          - POSTER_B
+  workflow_dispatch:      # This is for your manual testing
 
 jobs:
   post-video:
@@ -34,24 +22,22 @@ jobs:
       - name: Install dependencies
         run: pip install pyTelegramBotAPI
 
-      - name: Run Poster A (5am & 12pm)
-        # Runs on its schedule OR if manual input is 'ALL' or 'POSTER_A'
+      - name: Run Poster A
+        # Run if it's the 5am/12pm schedule OR if you clicked "Run workflow" manually
         if: |
-          github.event.schedule == '0 20 * * *' || 
+          github.event.schedule == '0 21 * * *' || 
           github.event.schedule == '0 4 * * *' || 
-          github.event.inputs.run_mode == 'ALL' || 
-          github.event.inputs.run_mode == 'POSTER_A'
+          github.event_name == 'workflow_dispatch'
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
         run: python bot2.py POSTER_A
 
-      - name: Run Poster B (9pm)
-        # Runs on its schedule OR if manual input is 'ALL' or 'POSTER_B'
+      - name: Run Poster B
+        # Run if it's the 9pm schedule OR if you clicked "Run workflow" manually
         if: |
           github.event.schedule == '0 13 * * *' || 
-          github.event.inputs.run_mode == 'ALL' || 
-          github.event.inputs.run_mode == 'POSTER_B'
+          github.event_name == 'workflow_dispatch'
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
