@@ -26,8 +26,8 @@ jobs:
         # Run if it's the 5am/12pm schedule OR if you clicked "Run workflow" manually
         if: |
           github.event.schedule == '0 21 * * *' || 
-          github.event.schedule == '0 4 * * *' || 
-          github.event_name == 'workflow_dispatch'
+          github.event.schedule == '0 4 * * *'  
+          # github.event_name == 'workflow_dispatch'
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
