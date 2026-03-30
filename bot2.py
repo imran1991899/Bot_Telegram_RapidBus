@@ -29,7 +29,7 @@ def main():
 
     try:
         with open(video_path, 'rb') as video:
-            bot.send_video(CHAT_ID, video, caption="Testing RapidBus Bot")
+            bot.send_video(CHAT_ID, video, caption="TESTING_BOT_NOW")
         print("SUCCESS: Video sent to Telegram!")
     except Exception as e:
         print(f"TELEGRAM REJECTED THE POST: {e}")
