@@ -2,9 +2,9 @@ name: Scheduled and Manual Test
 
 on:
   schedule:
-    - cron: '0 21 * * *'  # 5:00 AM MYT (Poster A)
-    - cron: '0 4 * * *'   # 12:00 PM MYT (Poster A)
-    - cron: '0 13 * * *'  # 9:00 PM MYT (Poster B)
+    - cron: '30 21 * * *'  # 5:30 AM MYT (Poster A)
+    - cron: '0 6 * * *'    # 2:00 PM MYT (Poster A)
+    - cron: '30 13 * * *'  # 9:30 PM MYT (Poster B)
   workflow_dispatch:      # This is for your manual testing
 
 jobs:
