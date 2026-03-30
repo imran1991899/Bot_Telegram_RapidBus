@@ -1,4 +1,4 @@
-name: Scheduled and Manual Test
+name: Scheduled and Manual Test 
 
 on:
   schedule:
