@@ -24,7 +24,8 @@ def main():
 
     try:
         with open(video_path, 'rb') as video:
-            bot.send_video(CHAT_ID, video, caption=f"Testing: {target}")
+            bot.send_video(CHAT_ID, video, caption=f" ")
+            # bot.send_video(CHAT_ID, video, caption=f"Testing: {target}")
         print(f"SUCCESS: {target} sent!")
     except Exception as e:
         print(f"Error: {e}")
