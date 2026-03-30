@@ -6,7 +6,7 @@ on:
     - cron: '0 20 * * *'  # 5:00 AM MYT (Poster A)
     - cron: '0 4 * * *'   # 12:00 PM MYT (Poster A)
     - cron: '0 13 * * *'  # 9:00 PM MYT (Poster B)
-   # workflow_dispatch:      # Allows you to run it manually for testing
+    workflow_dispatch: '0 4 * * *'      # Allows you to run it manually for testing
 
 jobs:
   post-video:
