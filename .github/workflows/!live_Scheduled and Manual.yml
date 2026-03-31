@@ -1,4 +1,4 @@
-name: !live_Scheduled and Manual Test 
+name: live_Scheduled and Manual Test 
 
 on:
   schedule:
