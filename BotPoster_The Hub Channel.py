@@ -3,7 +3,7 @@ import telebot
 import sys
 
 TOKEN = os.getenv('TELEGRAM_TOKEN')
-CHAT_ID = os.getenv('CHAT_ID_THC')
+CHAT_ID_THC = os.getenv('CHAT_ID_THC')
 bot = telebot.TeleBot(TOKEN)
 
 def find_specific_video(target_name):
