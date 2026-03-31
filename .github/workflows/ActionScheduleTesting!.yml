@@ -2,9 +2,9 @@ name: Scheduled and Manual Test
 
 on:
   schedule:
-    - cron: '30 21 * * *'  # 5:30 AM MYT (Poster A)
-    - cron: '0 6 * * *'    # 2:00 PM MYT (Poster A)
-    - cron: '30 13 * * *'  # 9:30 PM MYT (Poster B)
+    - cron: '45 20 * * *'  # 5:30 AM MYT (Poster A)
+    - cron: '0 5 * * *'    # 2:00 PM MYT (Poster A)
+    - cron: '25 12 * * *'  # 9:30 PM MYT (Poster B)
   workflow_dispatch:      # This is for your manual testing
 
 jobs:
@@ -25,8 +25,8 @@ jobs:
       - name: Run Poster A
         # Run if it's the 5am/12pm schedule OR if you clicked "Run workflow" manually
         if: |
-          github.event.schedule == '30 21 * * *' || 
-          github.event.schedule == '0 6 * * *'
+          github.event.schedule == '45 20 * * *' || 
+          github.event.schedule == '0 5 * * *'
         # github.event_name == 'workflow_dispatch'
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
@@ -36,7 +36,7 @@ jobs:
       - name: Run Poster B
         # Run if it's the 9pm schedule OR if you clicked "Run workflow" manually
         if: |
-          github.event.schedule == '0 13 * * *'
+          github.event.schedule == '25 12 * * *'
         # github.event_name == 'workflow_dispatch'
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
