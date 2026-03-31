@@ -30,7 +30,7 @@ jobs:
         # github.event_name == 'workflow_dispatch'
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-          CHAT_ID: ${{ secrets.CHAT_ID }}
+          CHAT_ID: ${{ secrets.CHAT_ID_THC }}
         run: python bot2.py POSTER_A
 
       - name: Run Poster B
@@ -40,5 +40,5 @@ jobs:
         # github.event_name == 'workflow_dispatch'
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-          CHAT_ID: ${{ secrets.CHAT_ID }}
+          CHAT_ID: ${{ secrets.CHAT_ID_THC }}
         run: python bot2.py POSTER_B
