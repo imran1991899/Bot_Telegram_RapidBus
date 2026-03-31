@@ -4,7 +4,7 @@ on:
   schedule:
     - cron: '45 20 * * *'  # 5:30 AM MYT (Poster A)
     - cron: '0 5 * * *'    # 2:00 PM MYT (Poster A)
-    - cron: '10 13 * * *'  # 9:30 PM MYT (Poster B)
+    - cron: '40 13 * * *'  # 9:30 PM MYT (Poster B)
   workflow_dispatch:      # This is for your manual testing
 
 jobs:
@@ -36,7 +36,7 @@ jobs:
       - name: Run Poster B
         # Run if it's the 9pm schedule OR if you clicked "Run workflow" manually
         if: |
-          github.event.schedule == '10 13 * * *'
+          github.event.schedule == '40 13 * * *'
         # github.event_name == 'workflow_dispatch'
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
