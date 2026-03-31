@@ -1,12 +1,11 @@
-name: Scheduled RapidBus Posts
+name: Scheduled and Manual Test 
 
 on:
   schedule:
-    # GitHub uses UTC. (+8 hours for Malaysia)
-    - cron: '0 21 * * *'  # 5:00 AM MYT (Poster A)
-    - cron: '0 4 * * *'   # 12:00 PM MYT (Poster A)
-    - cron: '0 13 * * *'  # 9:00 PM MYT (Poster B)
-  workflow_dispatch:      # Allows you to run it manually for testing
+    - cron: '45 20 * * *'  # 5:30 AM MYT (Poster A)
+    - cron: '0 5 * * *'    # 2:00 PM MYT (Poster A)
+    - cron: '25 12 * * *'  # 9:30 PM MYT (Poster B)
+  workflow_dispatch:      # This is for your manual testing
 
 jobs:
   post-video:
@@ -23,15 +22,22 @@ jobs:
       - name: Install dependencies
         run: pip install pyTelegramBotAPI
 
-      - name: Run Poster A (5am & 12pm)
-        if: github.event.schedule == '0 21 * * *' || github.event.schedule == '0 4 * * *' || github.event_name == 'workflow_dispatch'
+      - name: Run Poster A
+        # Run if it's the 5am/12pm schedule OR if you clicked "Run workflow" manually
+        if: |
+          github.event.schedule == '45 20 * * *' || 
+          github.event.schedule == '0 5 * * *'
+        # github.event_name == 'workflow_dispatch'
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
         run: python bot2.py POSTER_A
 
-      - name: Run Poster B (9pm)
-        if: github.event.schedule == '0 13 * * *'
+      - name: Run Poster B
+        # Run if it's the 9pm schedule OR if you clicked "Run workflow" manually
+        if: |
+          github.event.schedule == '25 12 * * *'
+        # github.event_name == 'workflow_dispatch'
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
