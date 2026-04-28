@@ -2,12 +2,9 @@ name: live_Scheduled and Manual
 
 on:
   schedule:
-    - cron: '59 04 * * *'  # Target 5:00 AM KL (Poster A)
-      timezone: 'Asia/Kuala_Lumpur'
-    - cron: '59 13 * * *'  # Target 2:00 PM KL (Poster A)
-      timezone: 'Asia/Kuala_Lumpur'
-    - cron: '59 21 * * *'  # Target 10:00 PM KL (Poster B)
-      timezone: 'Asia/Kuala_Lumpur'
+    - cron: '01 20 * * *'  # 4:30 AM MYT (Poster A)
+    - cron: '00 5 * * *'    # 2:00 PM MYT (Poster A)
+    - cron: '24 13 * * *'  # 10:00 PM MYT (Poster B)
   workflow_dispatch:      # This is for your manual testing
 
 jobs:
@@ -26,21 +23,21 @@ jobs:
         run: pip install pyTelegramBotAPI
 
       - name: Run Poster A
-        # Triggers for 5am and 2pm KL time slots
+        # Run if it's the 5am/12pm schedule OR if you clicked "Run workflow" manually
         if: |
-          github.event.schedule == '59 04 * * *' || 
-          github.event.schedule == '59 13 * * *' ||
-          github.event_name == 'workflow_dispatch'
+          github.event.schedule == '01 20 * * *' || 
+          github.event.schedule == '55 4 * * *'
+        # github.event_name == 'workflow_dispatch'
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
         run: python bot2.py POSTER_A
 
       - name: Run Poster B
-        # Triggers for 10pm KL time slot
+        # Run if it's the 9pm schedule OR if you clicked "Run workflow" manually
         if: |
-          github.event.schedule == '59 21 * * *' ||
-          github.event_name == 'workflow_dispatch'
+          github.event.schedule == '24 13 * * *'
+        # github.event_name == 'workflow_dispatch'
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
