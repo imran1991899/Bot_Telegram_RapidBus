@@ -25,9 +25,10 @@ jobs:
       - name: Run Poster A
         # Run if it's the 5am/12pm schedule OR if you clicked "Run workflow" manually
         if: |
-          github.event.schedule == '01 20 * * *' || 
+          github.event.schedule == '01 20 * * *' ||
           github.event.schedule == '30 05 * * *'
         # github.event_name == 'workflow_dispatch'
+
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
@@ -42,3 +43,7 @@ jobs:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
         run: python bot2.py POSTER_B
+
+        # 01 20 : 5.00am
+        # 30 05 : 2.00pm
+        # 30 12 : 10.00pm
