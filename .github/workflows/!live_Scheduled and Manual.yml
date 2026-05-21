@@ -2,8 +2,8 @@ name: live_Scheduled and Manual
 
 on:
   schedule:
-    - cron: '50 19 * * *'  # 4:30 AM MYT (Poster A)
-    - cron: '40 03 * * *'    # 2:00 PM MYT (Poster A)
+    - cron: '05 20 * * *'  # 4:30 AM MYT (Poster A)
+    - cron: '50 05 * * *'    # 2:00 PM MYT (Poster A)
     - cron: '30 11 * * *'  # 10:00 PM MYT (Poster B)
   workflow_dispatch:      # This is for your manual testing
 
@@ -25,8 +25,8 @@ jobs:
       - name: Run Poster A
         # Run if it's the 5am/12pm schedule OR if you clicked "Run workflow" manually
         if: |
-          github.event.schedule == '40 20 * * *' ||
-          github.event.schedule == '30 04 * * *'
+          github.event.schedule == '05 20 * * *' ||
+          github.event.schedule == '50 05 * * *'
         # github.event_name == 'workflow_dispatch'
 
         env:
