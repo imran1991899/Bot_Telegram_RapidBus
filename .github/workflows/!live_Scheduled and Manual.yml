@@ -26,7 +26,7 @@ jobs:
         # Run if it's the 5am/12pm schedule OR if you clicked "Run workflow" manually
         if: |
           github.event.schedule == '05 20 * * *' ||
-          github.event.schedule == '50 05 * * *'
+          github.event.schedule == '00 04 * * *'
         # github.event_name == 'workflow_dispatch'
 
         env:
