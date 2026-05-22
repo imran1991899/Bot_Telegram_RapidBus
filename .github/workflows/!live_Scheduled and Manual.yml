@@ -3,7 +3,7 @@ name: live_Scheduled and Manual
 on:
   schedule:
     - cron: '05 20 * * *'  # 4:30 AM MYT (Poster A)
-    - cron: '50 05 * * *'    # 2:00 PM MYT (Poster A)
+    - cron: '00 04 * * *'    # 2:00 PM MYT (Poster A)
     - cron: '30 11 * * *'  # 10:00 PM MYT (Poster B)
   workflow_dispatch:      # This is for your manual testing
 
